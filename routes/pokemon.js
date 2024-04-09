@@ -53,27 +53,22 @@ router.get('/pokemon/:id',validatePoke(), (req, res) => {
     const validatePokeInfo=()=>{
         return [
             param('id').notEmpty().escape().trim(),
-            param('name').notEmpty().escape().trim(),
-            param('type').notEmpty().escape().trim(),
-            param('base').notEmpty().isNumeric
+            param('info').notEmpty().escape().trim(),
+            
         ]
     }
        
     router.get('/pokemon/:id/:info',validatePokeInfo(), (req, res) => {
         try {
-            const errors = validationResult(req, resp);
+            const result = validationResult(req);
              if (result.isEmpty()) {
                 const data = matchedData(req);
-                console.log('DATA:' + data);
-                res.send({'name':resp.data.name});
+                Pokemon.findById(data.id, data.info).then((result) => {
+                    res.json(result);
+                });
+
              }
-             const id = req.params.id;
-             const name = req.params.name;
-             const type = req.params.type;
-             const base = req.params.base;
-             Pokemon.findById( id, name, type, base).then((result) => {
-                 res.json(result);
-             });
+           
          } catch (error) {
              console.log(error);
              res.status(500).send('Internal server error');
