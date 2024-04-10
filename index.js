@@ -7,7 +7,7 @@ require('dotenv').config();
 //load the .env variables
 
 //TODO: add cors
-app.use(cors());
+app.use(cors({ origin: '*'}));
 app.use(bodyParser.json());
 
 //import the routes
