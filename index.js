@@ -7,7 +7,7 @@ require('dotenv').config();
 //load the .env variables
 
 //TODO: add cors
-app.use(cors({ origin: ['http://localhost:7476','*'],
+app.use(cors({ origin: 'http://localhost:7476',
 methods: '*',
 }));
 app.use(bodyParser.json());
